@@ -31,7 +31,7 @@ std::string infx2pstfx(std::string inf) {
         ops += inf[i];
       }
       ops += ' ';
-    } else if (stack1.isEmpty() || prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get()) {
+    } else if (stack1.isEmpty() || prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get())) {
              stack1.push(inf[i]);
     } else if (prior(inf[i]) <= prior(stack1.get()) {
         while (prior(inf[i]) <= prior(stack1.get() && !stack1.isEmpty()) {
@@ -69,7 +69,7 @@ int eval(std::string pst) {
     } else if (pst[i] != ' ') {
         int num2 = stack2.get();
         stack2.pop();
-        int num1 = stack.get();
+        int num1 = stack2.get();
         stack2.pop();
         switch (pst[i]) {
           case '-':
@@ -89,7 +89,7 @@ int eval(std::string pst) {
       }
   }
   while (!stack2.isEmpty()) {
-    ops = stack2.top() + ops;
+    ops = stack2.get() + ops;
   }
   return stack2.get();
 }
