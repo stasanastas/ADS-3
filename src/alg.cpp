@@ -31,29 +31,26 @@ std::string infx2pstfx(std::string inf) {
         ops += inf[i];
       }
       ops += ' ';
-    }
-    else if (stack1.empty() || prior(inf[i]) == 0 || prior(inf[i]) > prior(stack.top()) {
-      stack1.push(inf[i]);
-    }
-    else if (prior(inf[i]) <= prior(stack.top()) {
-      while (prior(inf[i]) <= prior(stack.top() && !stack1.empty()) {
-        ops += stack1.top();
-        ops += ' ';
+    } else if (stack1.isEmpty() || prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get()) {
+             stack1.push(inf[i]);
+    } else if (prior(inf[i]) <= prior(stack1.get()) {
+        while (prior(inf[i]) <= prior(stack1.get() && !stack1.isEmpty()) {
+          ops += stack1.get();
+          ops += ' ';
+          stack1.pop();
+        }
+        stack1.push(inf[i]);
+    } else if (inf[i] == ')') {
+        while (stack1.get() != '(') {
+          ops += stack1.get();
+          ops += ' ';
+          stack1.pop();
+        }
         stack1.pop();
-      }
-      stack1.push(inf[i]);
-    }
-    else if (inf[i] == ')') {
-      while (stack1.top() != '(') {
-        ops += stack1.top();
-        ops += ' ';
-        stack1.pop();
-      }
-      stack1.pop();
     }
   }
-  while (!stack1.empty()) {
-    str = stack1.top() + str;
+  while (!stack1.isEmpty()) {
+    str = stack1.get() + str;
   }
   ops += str;
   return ops;
@@ -69,31 +66,30 @@ int eval(std::string pst) {
         n = pst[i] - '0';
         stack2.push(n);
       }
-    }
-    else if (pst[i] != ' ') {
-      int num2 = stack2.top();
-      stack2.pop();
-      int num1 = stack.top();
-      stack2.pop();
-      switch (pst[i]) {
-        case '-':
-          n = num1 - num2;
-          break;
-        case '+':
-          n = num1 + num2;
-          break;
-        case '*':
-          n = num1 * num2;
-          break;
-        case '/':
-          n = num1 / num2;
-          break;
+    } else if (pst[i] != ' ') {
+        int num2 = stack2.get();
+        stack2.pop();
+        int num1 = stack.get();
+        stack2.pop();
+        switch (pst[i]) {
+          case '-':
+            n = num1 - num2;
+            break;
+          case '+':
+            n = num1 + num2;
+            break;
+          case '*':
+            n = num1 * num2;
+            break;
+          case '/':
+            n = num1 / num2;
+            break;
+        }
+        stack2.push(n);
       }
-      stack2.push(n);
-    }
   }
-  while (!stack2.empty()) {
+  while (!stack2.isEmpty()) {
     ops = stack2.top() + ops;
   }
-  return ops;
+  return stack2.get();
 }
