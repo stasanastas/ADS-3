@@ -31,7 +31,9 @@ std::string infx2pstfx(std::string inf) {
         ops += inf[i];
       }
       ops += ' ';
-    } else if (stack1.isEmpty() || prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get())) {
+    } else if (stack1.isEmpty()) {
+             stack1.push(inf[i]);
+    } else if (prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get())) {
              stack1.push(inf[i]);
     } else if (prior(inf[i]) <= prior(stack1.get()) {
         while (prior(inf[i]) <= prior(stack1.get() && !stack1.isEmpty()) {
@@ -58,7 +60,6 @@ std::string infx2pstfx(std::string inf) {
 
 int eval(std::string pst) {
   TStack<int> stack2;
-  std::string ops;
   int n;
   for (int i = 0; i < pst.length(); i++) {
     if (pst[i] >= '0' && pst[i] <= '9') {
@@ -87,9 +88,6 @@ int eval(std::string pst) {
         }
         stack2.push(n);
       }
-  }
-  while (!stack2.isEmpty()) {
-    ops = stack2.get() + ops;
   }
   return stack2.get();
 }
