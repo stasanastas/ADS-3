@@ -53,6 +53,7 @@ std::string infx2pstfx(std::string inf) {
   }
   while (!stack1.isEmpty()) {
     str = stack1.get() + str;
+    stack1.pop();
   }
   ops += str;
   return ops;
