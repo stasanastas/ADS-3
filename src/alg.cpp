@@ -27,10 +27,9 @@ std::string infx2pstfx(std::string inf) {
   std::string str;
   for (int i = 0; i < inf.length(); i++) {
     if (prior(inf[i]) == -1) {
-      while (prior(inf[i]) == -1) {
-        ops += inf[i];
-      }
-      ops += ' ';
+      ops += inf[i];
+      if (prior(inf[i + 1]) != -1)
+        ops += ' ';
     } else if (stack1.isEmpty()) {
              stack1.push(inf[i]);
     } else if (prior(inf[i]) == 0 || prior(inf[i]) > prior(stack1.get())) {
@@ -62,33 +61,32 @@ std::string infx2pstfx(std::string inf) {
 int eval(std::string pst) {
   TStack<int> stack2;
   int n;
+  std::string str;
   for (int i = 0; i < pst.length(); i++) {
     if (pst[i] >= '0' && pst[i] <= '9') {
-      while (pst[i] >= '0' && pst[i] <= '9') {
-        n = pst[i] - '0';
-        stack2.push(n);
-      }
+      str = pst[i] - '0';
+      stack2.push(str);
     } else if (pst[i] != ' ') {
-        int num2 = stack2.get();
-        stack2.pop();
-        int num1 = stack2.get();
-        stack2.pop();
-        switch (pst[i]) {
-          case '-':
-            n = num1 - num2;
-            break;
-          case '+':
-            n = num1 + num2;
-            break;
-          case '*':
-            n = num1 * num2;
-            break;
-          case '/':
-            n = num1 / num2;
-            break;
-        }
-        stack2.push(n);
+      int num2 = stack2.get();
+      stack2.pop();
+      int num1 = stack2.get();
+      stack2.pop();
+      switch (pst[i]) {
+        case '-':
+          n = num1 - num2;
+          break;
+        case '+':
+          n = num1 + num2;
+          break;
+        case '*':
+          n = num1 * num2;
+          break;
+        case '/':
+          n = num1 / num2;
+          break;
       }
+      stack2.push(n);
+    }
   }
   return stack2.get();
 }
