@@ -25,7 +25,7 @@ std::string infx2pstfx(std::string inf) {
   TStack<char> stack1;
   std::string ops;
   std::string str;
-  for (int i = 0; i <= inf.length(); i++) {
+  for (int i = 0; i < inf.length(); i++) {
     if (prior(inf[i]) == -1) {
       while (prior(inf[i]) == -1) {
         ops += inf[i];
@@ -52,7 +52,7 @@ std::string infx2pstfx(std::string inf) {
     }
   }
   while (!stack1.isEmpty()) {
-    str = stack1.get() + str;
+    str = stack1.get() + " " + str;
     stack1.pop();
   }
   ops += str;
